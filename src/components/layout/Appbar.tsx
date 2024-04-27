@@ -9,7 +9,7 @@ export const Appbar = () => {
                     <div className="text-lg lg:text-2xl font-extrabold permanent-marker flex items-center dark:text-white cursor-pointer"
                          onClick={() => navigate('/')}>
                         <img src={'/img.png'}
-                             className={'lg:h-5 h-4'}/> iapp
+                             className={'lg:h-5 h-4'}/> etResearch
                     </div>
                     <div className={''}>
                         <form className="w-full  hidden lg:block">
@@ -21,18 +21,27 @@ export const Appbar = () => {
                                     className="block w-full p-3 ps-10 text-sm text-slate-900  rounded-3xl bg-slate-50
 transition-all duration-200 ease-linear
   focus:ring-2 focus:ring-black focus:outline-none focus:ring-opacity-30
-  cursor-not-allowed
-
  dark:bg-slate-700  dark:placeholder-slate-400 dark:text-white "
                                     id="default-search"
-                                    placeholder={'Search your research job'}
+                                    placeholder={'Find your research job'}
                                     type="search"
                                 />
                             </div>
                         </form>
                     </div>
                     <div className="justify-self-end flex gap-2 items-center">
-                        
+                        <div
+                            id="basic-button"
+                            className={`
+                            ${'bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white'}
+                            text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl bg-slate-100 py-2 px-4`}>
+                            <>
+                                <div className={`flex items-center`}>
+                                    <span className="text-lg i-mdi-account-circle hidden lg:block mr-1"/>
+                                    Free to use
+                                </div>
+                            </>
+                        </div>
                     </div>
                 </div>
 
