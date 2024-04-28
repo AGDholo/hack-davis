@@ -1,7 +1,7 @@
 import {useNavigate} from "react-router-dom";
 import {useAuthInfo, useLogoutFunction, useRedirectFunctions} from "@propelauth/react";
 import {useState} from "react";
-import {Dialog} from "@mui/material";
+import {Dialog, LinearProgress} from "@mui/material";
 import axios from "axios";
 import {useResearch} from "../../hooks/useResearch.ts";
 import {Research} from "../../hooks/useUser.ts";
@@ -29,6 +29,7 @@ export const Appbar = () => {
                 } catch (e) {
                     console.error(e)
                 }
+                setIsSearching(false)
             })
     }
     return (
@@ -116,7 +117,7 @@ cursor-pointer
                             }}
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-
+                            disabled={isSearching}
                             className="block w-full p-3 ps-10 text-sm text-slate-900  rounded-3xl bg-slate-50
 transition-all duration-200 ease-linear
     focus:ring-2 focus:ring-black focus:outline-none focus:ring-opacity-30
@@ -126,6 +127,10 @@ transition-all duration-200 ease-linear
                             type="text"
                         />
                     </div>
+
+                    {isSearching && (
+                        <LinearProgress/>
+                    )}
 
                     <div className={'pt-4 grid-cols-1 grid md:grid-cols-2 md:gap-4'}>
                         {result && result.map((r, i) => (
