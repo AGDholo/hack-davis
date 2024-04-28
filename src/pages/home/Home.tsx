@@ -221,21 +221,19 @@ const FeaturedJobs = () => {
                     Featured <span className={'text-blue-500'}>Research Jobs</span>
                 </div>
 
-                <div className={'grid grid-cols-12 text-left gap-6 py-10'}>
+                <div className={'grid grid-cols-12 text-left gap-6 pt-10'}>
                     {
                         jobs.map((job, index) => (
-                            <div className={'col-span-3 p-6 border rounded-xl hover:shadow cursor-pointer transition-all duration-200 ease-linear'}
+                            <div className={'col-span-3 p-6 border rounded-xl hover:shadow cursor-pointer transition-all duration-200 ease-linear flex flex-col'}
                                  key={index}>
-                                <div>
+                                <div className={'flex-1'}>
                                     <div className={'flex'}>
-                                        <div className=" relative grid select-none items-center whitespace-nowrap rounded-lg bg-gray-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">
-                                            <span className="">
-                                                {job.company}
-                                            </span>
+                                        <div className="relative grid select-none items-center whitespace-nowrap rounded-lg bg-gray-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">
+                                            <span>{job.company}</span>
                                         </div>
                                     </div>
 
-                                    <div className={' mt-1 space-y-0.5'}>
+                                    <div className={'mt-1 space-y-0.5'}>
                                         <div className={'text-xl font-semibold'}>
                                             {job.title}
                                         </div>
@@ -244,21 +242,36 @@ const FeaturedJobs = () => {
                                             {job.location}
                                         </div>
 
-
                                         <div className={'text-sm text-gray-500'}>
                                             {job.type}
                                         </div>
                                     </div>
 
-                                    <div className={'flex'}>
-                                        <div>
+                                    <div className={'flex flex-1'}>
+                                        <div className={'mt-2'}>
                                             {job.description}
                                         </div>
                                     </div>
                                 </div>
+
+                                <div className={'mt-auto flex justify-between items-end pt-5'}>
+                                    <div className={'text-lg font-bold'}>
+                                        {job.salary}
+                                    </div>
+
+                                    <button className={'bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'}>
+                                        Apply Now
+                                    </button>
+                                </div>
                             </div>
                         ))
                     }
+                </div>
+
+                <div className={'mt-10'}>
+                    <button className={'transition-all duration-200 ease-linear hover:bg-cyan-500 hover:text-white border border-cyan-500 text-lg px-6 py-2 rounded-3xl'}>
+                        View All Jobs
+                    </button>
                 </div>
             </div>
         </>

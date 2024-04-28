@@ -15,8 +15,8 @@ export const Appbar = () => {
                         <img src={'/img.png'}
                              className={'lg:h-10'}/> etResearch
                     </div>
-                    <div className={''}>
-                        <form className="w-full  hidden lg:block">
+                    <div className={' z-0'}>
+                        <form className="w-full  hidden lg:block z-0">
                             <div className="relative">
                                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                     <span className="i-mdi-search w-4 h-4 text-slate-500 dark:text-slate-400"/>

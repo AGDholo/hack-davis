@@ -4,7 +4,9 @@ import {Outlet} from "react-router-dom";
 export const Layout = () => {
     return (
         <>
-            <Appbar/>
+            <div className={'fixed w-full bg-white z-'}>
+                <Appbar/>
+            </div>
             <Outlet/>
         </>
     )
