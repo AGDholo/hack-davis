@@ -42,7 +42,7 @@ export const DashboardLayout = () => {
     const accountSettings = [
         {
             icon: 'i-mdi-briefcase-search-outline',
-            label: 'Jobs',
+            label: 'Research Jobs',
             path: '/dashboard'
         },
         {
@@ -55,7 +55,7 @@ export const DashboardLayout = () => {
     const createJob = [
         {
             icon: 'i-mdi-list-box-outline',
-            label: 'My jobs',
+            label: 'My Researches',
             path: '/dashboard/my-jobs'
         },
         {

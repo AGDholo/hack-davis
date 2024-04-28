@@ -1,4 +1,7 @@
 import {JobCard, jobs} from "../../components/job/Jobcard.tsx";
+import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
+import {useNavigate} from "react-router-dom";
+import {Tooltip} from "@mui/material";
 
 export const Home = () => {
     return (
@@ -148,7 +151,9 @@ const Solution = () => {
 }
 
 const FeaturedJobs = () => {
-
+    const authInfo = useAuthInfo()
+    const navigate = useNavigate()
+    const {redirectToLoginPage} = useRedirectFunctions()
     return (
         <>
             <div className={'container mx-auto text-center'}>
@@ -165,9 +170,14 @@ const FeaturedJobs = () => {
                 </div>
 
                 <div className={'mt-10'}>
-                    <button className={'transition-all duration-200 ease-linear hover:bg-cyan-500 hover:text-white border border-cyan-500 text-lg px-6 py-2 rounded-3xl'}>
-                        View All Jobs
-                    </button>
+                    <Tooltip arrow
+                             title={authInfo.isLoggedIn ? '' : 'Login to view all jobs'}>
+                        <button
+                            onClick={() => !authInfo.isLoggedIn ? redirectToLoginPage() : navigate('/dashboard')}
+                            className={'transition-all duration-200 ease-linear hover:bg-cyan-500 hover:text-white border border-cyan-500 text-lg px-6 py-2 rounded-3xl'}>
+                            View All Jobs
+                        </button>
+                    </Tooltip>
                 </div>
             </div>
         </>

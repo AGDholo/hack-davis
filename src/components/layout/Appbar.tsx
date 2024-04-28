@@ -1,7 +1,10 @@
 import {useNavigate} from "react-router-dom";
+import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
 
 export const Appbar = () => {
     const navigate = useNavigate()
+    const authInfo = useAuthInfo()
+    const {redirectToLoginPage} = useRedirectFunctions()
     return (
         <>
             <div className={'p-1 text-center bg-black text-white'}>
@@ -36,13 +39,14 @@ transition-all duration-200 ease-linear
                     <div className="justify-self-end flex gap-2 items-center">
                         <div
                             id="basic-button"
+                            onClick={() => !authInfo.isLoggedIn ? redirectToLoginPage() : navigate('/dashboard')}
                             className={`
                             ${'bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white'}
                             text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl bg-slate-100 py-2 px-4`}>
                             <>
                                 <div className={`flex items-center`}>
                                     <span className="text-lg i-mdi-account-circle hidden lg:block mr-1"/>
-                                    Free to use
+                                    {authInfo.isLoggedIn ? authInfo.user.email : 'Free to use'}
                                 </div>
                             </>
                         </div>
