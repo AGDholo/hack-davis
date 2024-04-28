@@ -1,6 +1,7 @@
 import {Appbar} from "../layout/Appbar.tsx";
 import {Link, Outlet, useLocation} from "react-router-dom";
 import {FC} from "react";
+import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
 
 interface AccountData {
     icon: string;
@@ -71,6 +72,8 @@ export const DashboardLayout = () => {
 
     ]
 
+    const authInfo = useAuthInfo()
+    const {redirectToLoginPage} = useRedirectFunctions()
     return (
         <>
             <div className={'lg:sticky lg:top-0 lg:left-0 w-full z-50 backdrop-blur-xl ease-in duration-100'}>
@@ -88,7 +91,20 @@ export const DashboardLayout = () => {
             </div>
 
             <div className={'px-4 lg:ml-72 py-8 lg:mr-10 '}>
-                <Outlet/>
+                {authInfo.isLoggedIn ? <Outlet/> : (
+                    <div className={'flex'}>
+                        <div
+                            id="basic-button"
+                            onClick={() => !authInfo.isLoggedIn && redirectToLoginPage()}
+                            className={`
+                            ${'bg-gradient-to-r from-fuchsia-600 to-purple-600 text-white'}
+                            text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl bg-slate-100 py-2 px-4`}>
+                            <>
+                                Please login
+                            </>
+                        </div>
+                    </div>
+                )}
             </div>
 
 

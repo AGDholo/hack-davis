@@ -1,12 +1,12 @@
-import {useAuth0} from "@auth0/auth0-react";
 import {fetcher} from "../http/fetcher.ts";
+import {useAuthInfo} from "@propelauth/react";
 
 export const useJwtFetcher = () => {
-    const {getAccessTokenSilently} = useAuth0();
+    const authInfo = useAuthInfo()
 
-    const jwtFetcher = async (url: RequestInfo | URL) => {
-        const jwt = await getAccessTokenSilently();
-        return fetcher(url, jwt);
+    const jwtFetcher = (url: RequestInfo | URL) => {
+        const jwt = authInfo.accessToken;
+        return fetcher(url, jwt ?? '');
     };
 
     return jwtFetcher;
