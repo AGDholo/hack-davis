@@ -6,6 +6,8 @@ export const Appbar = () => {
     const authInfo = useAuthInfo()
     const {redirectToLoginPage} = useRedirectFunctions()
     const logoutFunction = useLogoutFunction()
+
+
     return (
         <>
             <div className={'p-1 text-center bg-black text-white'}>
