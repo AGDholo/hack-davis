@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import {useJwtFetcher} from "./useJwtFetcher.ts";
+import {useAuthInfo} from "@propelauth/react";
 
 interface User {
     firstname: string | null;
@@ -26,8 +27,12 @@ interface User {
 
 
 export const useUser = () => {
+    const authInfo = useAuthInfo()
     const jwtFetcher = useJwtFetcher();
-    const {data: user, isLoading: isUserLoading} = useSWR<User>('/user/db-user', jwtFetcher);
+    const {
+        data: user,
+        isLoading: isUserLoading
+    } = useSWR<User>(authInfo.accessToken ? '/user/db-user' : null, jwtFetcher);
     const isProfileComplete = user?.name;
 
     return {user, isUserLoading, isProfileComplete};
