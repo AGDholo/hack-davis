@@ -84,8 +84,6 @@ export const DashboardLayout = () => {
     const authInfo = useAuthInfo()
     const {redirectToLoginPage} = useRedirectFunctions()
 
-    const {isProfileComplete, isUserLoading} = useUser();
-
 
     return (
         <>
@@ -135,28 +133,30 @@ export const DashboardLayout = () => {
                 )}
             </div>
 
-            <BottomNavigation
-                showLabels
-                className={'sticky bottom-0 lg:hidden border'}
-            >
-                {accountSettings.map((item, index) => (
-                    <BottomNavigationAction
-                        key={index}
-                        label={item.label}
-                        onClick={() => navigate(item.path)}
-                        icon={<span className={`text-xl ${item.icon}`}></span>}
-                    />
-                ))}
+            <div className={'sticky bottom-0 lg:hidden border'}>
+                <BottomNavigation
+                    showLabels
+                    className={''}
+                >
+                    {accountSettings.map((item, index) => (
+                        <BottomNavigationAction
+                            key={index}
+                            label={item.label}
+                            onClick={() => navigate(item.path)}
+                            icon={<span className={`text-xl ${item.icon}`}></span>}
+                        />
+                    ))}
 
-                {createJob.map((item, index) => (
-                    <BottomNavigationAction
-                        key={index}
-                        label={item.label}
-                        onClick={() => navigate(item.path)}
-                        icon={<span className={`text-xl ${item.icon}`}></span>}
-                    />
-                ))}
-            </BottomNavigation>
+                    {createJob.map((item, index) => (
+                        <BottomNavigationAction
+                            key={index}
+                            label={item.label}
+                            onClick={() => navigate(item.path)}
+                            icon={<span className={`text-xl ${item.icon}`}></span>}
+                        />
+                    ))}
+                </BottomNavigation>
+            </div>
         </>
     )
 }
