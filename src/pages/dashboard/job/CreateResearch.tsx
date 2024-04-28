@@ -27,14 +27,6 @@ export const CreateResearch = () => {
         });
     };
 
-    const handleEditorChange = () => {
-        if (editorRef.current) {
-            setFormData({
-                ...formData,
-                description: editorRef.current.getContent()
-            });
-        }
-    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -44,8 +36,8 @@ export const CreateResearch = () => {
                 `${import.meta.env.VITE_APP_BACKEND_URL}/research/create`,
                 {
                     Research: {
-                        ...formData
-
+                        ...formData,
+                        description: editorRef.current && editorRef.current.getContent()
                     }
                 },
                 {
@@ -88,9 +80,6 @@ export const CreateResearch = () => {
                     init={{
                         height: 300,
                         menubar: false,
-                        setup: editor => {
-                            editor.on('Change', handleEditorChange);
-                        }
                     }}
                 />
 

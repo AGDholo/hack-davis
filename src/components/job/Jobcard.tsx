@@ -1,4 +1,5 @@
 import {FC} from "react";
+import DOMPurify from 'dompurify';
 
 interface JobCardProps {
     company: string;
@@ -6,7 +7,8 @@ interface JobCardProps {
     title: string;
     type: string;
     description: string;
-    salary: string;
+    salary: number;
+    isProfesssor?: boolean;
 }
 
 export const jobs = [
@@ -78,6 +80,7 @@ export const jobs = [
 
 
 export const JobCard: FC<JobCardProps> = (job) => {
+    const safeHtml = DOMPurify.sanitize(job.description);
     return (
         <div className='col-span-1  lg:col-span-4 xl:col-span-3 p-6 border rounded-xl hover:shadow-lg hover:border-0 cursor-pointer transition-all duration-200 ease-linear flex flex-col'>
             <div className='flex-1 z-0'>
@@ -103,14 +106,14 @@ export const JobCard: FC<JobCardProps> = (job) => {
 
                 <div className='flex flex-1'>
                     <div className='mt-2'>
-                        {job.description}
+                        <div dangerouslySetInnerHTML={{__html: safeHtml}}/>
                     </div>
                 </div>
             </div>
 
             <div className='mt-auto flex justify-between items-end pt-5'>
                 <div className='text-lg font-bold'>
-                    {job.salary}
+                    ${job.salary} / Month
                 </div>
 
                 <button className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>

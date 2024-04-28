@@ -42,6 +42,7 @@ const AccountSection: FC<AccountSectionProps> = ({data}) => {
 }
 
 export const DashboardLayout = () => {
+    const {user} = useUser()
     const accountSettings = [
         {
             icon: 'i-mdi-briefcase-search-outline',
@@ -55,24 +56,29 @@ export const DashboardLayout = () => {
         }
     ]
 
-    const createJob = [
+    // 创建条件相关的选项
+    const researchOptions = user && user.professor ? [
         {
             icon: 'i-mdi-list-box-outline',
             label: 'My Researches',
             path: '/dashboard/my-researches'
         },
         {
+            icon: 'i-mdi-plus-circle-outline',
+            label: 'Create Researches',
+            path: '/dashboard/create-researches'
+        },
+    ] : [
+        {
             icon: 'i-mdi-list-box-outline',
             label: 'My applications',
             path: '/dashboard/my-applications'
-        },
-        {
-            icon: 'i-mdi-plus-circle-outline',
-            label: 'Create Researche',
-            path: '/dashboard/create-researches'
-        },
+        }
+    ];
 
-    ]
+    // 合并账户设置和条件相关的选项
+    const createJob = [...researchOptions];
+
 
     const authInfo = useAuthInfo()
     const {redirectToLoginPage} = useRedirectFunctions()
