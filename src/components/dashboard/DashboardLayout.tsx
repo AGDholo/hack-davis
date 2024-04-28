@@ -1,6 +1,6 @@
 import {Appbar} from "../layout/Appbar.tsx";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
-import {FC, useState} from "react";
+import {FC} from "react";
 import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
 import {useUser} from "../../hooks/useUser.ts";
 import {Alert, BottomNavigation, BottomNavigationAction} from "@mui/material";
@@ -86,7 +86,6 @@ export const DashboardLayout = () => {
 
     const {isProfileComplete, isUserLoading} = useUser();
 
-    const [value, setValue] = useState(0);
 
     return (
         <>
@@ -138,10 +137,6 @@ export const DashboardLayout = () => {
 
             <BottomNavigation
                 showLabels
-                
-                onChange={(_event, newValue) => {
-                    setValue(newValue);
-                }}
                 className={'sticky bottom-0 lg:hidden border'}
             >
                 {accountSettings.map((item, index) => (
