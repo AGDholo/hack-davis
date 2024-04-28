@@ -57,5 +57,11 @@ export const useUser = () => {
     });
 
 
-    return {user, isUserLoading, isProfileComplete, userResearches, isUserResearchesLoading};
+    const {
+        data: myApplications
+    } = useSWR<Research[]>(authInfo.accessToken ? '/proxy/user/my-applications' : null, jwtFetcher, {
+        refreshInterval: 1000 * 2
+    });
+
+    return {user, isUserLoading, isProfileComplete, userResearches, isUserResearchesLoading, myApplications};
 }
