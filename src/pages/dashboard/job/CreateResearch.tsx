@@ -66,7 +66,7 @@ const UserEditor: FC = () => {
     return (
         <>
             <Editor
-                apiKey={import.meta.env.TINYMCE_API_KEY}
+                apiKey={'b4bz61z0lpmf3j3k1u8z3fqbs8tjoci5o6cwhoq0tytl1uws'}
                 //eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 onInit={(_evt, editor) => (editorRef.current = editor)} // This is how it should be done
