@@ -4,12 +4,16 @@ export const Appbar = () => {
     const navigate = useNavigate()
     return (
         <>
+            <div className={'p-1 text-center bg-black text-white'}>
+                This website is intended for the demonstration of the Hack Davis software. All data displayed on the
+                site is fictitious and does not represent any actual professors or students.
+            </div>
             <div>
                 <div className="border-b dark:border-b-slate-600 h-16 grid-cols-3 grid items-center px-4 lg:px-10">
-                    <div className="text-lg lg:text-2xl font-extrabold permanent-marker flex items-center dark:text-white cursor-pointer"
+                    <div className=" text-lg lg:text-2xl font-extrabold permanent-marker flex items-end dark:text-white cursor-pointer"
                          onClick={() => navigate('/')}>
                         <img src={'/img.png'}
-                             className={'lg:h-5 h-4'}/> etResearch
+                             className={'lg:h-10'}/> etResearch
                     </div>
                     <div className={''}>
                         <form className="w-full  hidden lg:block">
