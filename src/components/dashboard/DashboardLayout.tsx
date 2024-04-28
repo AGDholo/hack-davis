@@ -1,9 +1,9 @@
 import {Appbar} from "../layout/Appbar.tsx";
-import {Link, Outlet, useLocation} from "react-router-dom";
-import {FC} from "react";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {FC, useState} from "react";
 import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
 import {useUser} from "../../hooks/useUser.ts";
-import {Alert} from "@mui/material";
+import {Alert, BottomNavigation, BottomNavigationAction} from "@mui/material";
 
 interface AccountData {
     icon: string;
@@ -43,6 +43,7 @@ const AccountSection: FC<AccountSectionProps> = ({data}) => {
 
 export const DashboardLayout = () => {
     const {user} = useUser()
+    const navigate = useNavigate()
     const accountSettings = [
         {
             icon: 'i-mdi-briefcase-search-outline',
@@ -85,6 +86,8 @@ export const DashboardLayout = () => {
 
     const {isProfileComplete, isUserLoading} = useUser();
 
+    const [value, setValue] = useState(0);
+
     return (
         <>
             <div className={'lg:sticky lg:top-0 lg:left-0 w-full z-50 backdrop-blur-xl ease-in duration-100'}>
@@ -100,6 +103,7 @@ export const DashboardLayout = () => {
 
                 <AccountSection data={createJob}/>
             </div>
+
 
             <div className={'px-4 lg:ml-72 py-8 lg:mr-10 '}>
                 {authInfo.isLoggedIn ? (
@@ -132,7 +136,32 @@ export const DashboardLayout = () => {
                 )}
             </div>
 
+            <BottomNavigation
+                showLabels
+                
+                onChange={(_event, newValue) => {
+                    setValue(newValue);
+                }}
+                className={'sticky bottom-0 lg:hidden border'}
+            >
+                {accountSettings.map((item, index) => (
+                    <BottomNavigationAction
+                        key={index}
+                        label={item.label}
+                        onClick={() => navigate(item.path)}
+                        icon={<span className={`text-xl ${item.icon}`}></span>}
+                    />
+                ))}
 
+                {createJob.map((item, index) => (
+                    <BottomNavigationAction
+                        key={index}
+                        label={item.label}
+                        onClick={() => navigate(item.path)}
+                        icon={<span className={`text-xl ${item.icon}`}></span>}
+                    />
+                ))}
+            </BottomNavigation>
         </>
     )
 }
