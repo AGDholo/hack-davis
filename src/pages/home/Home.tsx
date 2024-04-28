@@ -1,7 +1,7 @@
 export const Home = () => {
     return (
         <>
-            <div className={'py-32 bg-gradient-to-b from-white via-cyan-50 to-white'}>
+            <div className={'py-32 pt-52 bg-gradient-to-b from-white via-cyan-50 to-white'}>
                 <div className={'container mx-auto max-w-lg'}>
                     <div className={'text-center space-y-8  '}>
                         <div className={' text-6xl font-bold'}>
