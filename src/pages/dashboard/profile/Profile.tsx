@@ -1,7 +1,9 @@
 import {Avatar, FormControlLabel, Switch, TextField} from "@mui/material";
-import {FC, useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 import {TextareaAutosize} from '@mui/base';
 import {useUser} from "../../../hooks/useUser.ts";
+import {useAuthInfo} from "@propelauth/react";
+import axios from "axios";
 
 interface ProfileFieldProps {
     label?: string;
@@ -44,10 +46,29 @@ const ProfileField: FC<ProfileFieldProps> = ({readonly, label, value, onChange, 
 
 
 export const Profile = () => {
-    const user = useUser()
+    const {user} = useUser()
+    const authInfo = useAuthInfo()
+
+    const [isProfessor, setIsProfessor] = useState(false)
     useEffect(() => {
-        console.log(user)
+        setIsProfessor(user?.professor ?? false)
     }, [user])
+
+    const updateUserAsync = async () => {
+        try {
+            await axios.post(
+                `${import.meta.env.VITE_APP_BACKEND_URL}/users/update`,
+                {
+                    professor: isProfessor,
+                },
+                {
+                    headers: {Authorization: `Bearer ${authInfo.accessToken}`}
+                }
+            );
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <>
@@ -58,17 +79,17 @@ export const Profile = () => {
                             <div>
                                 User Role
                             </div>
-
-                            <div>
-                                <button
-                                    className={'hover:bg-transparent ring-1 ring-fuchsia-600 hover:bg-fuchsia-600 text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl bg-slate-100 py-1 px-4'}>
-                                    Save
-                                </button>
-                            </div>
                         </div>
 
                         <div className={'mt-5'}>
-                            <FormControlLabel control={<Switch/>}
+                            <FormControlLabel control={<Switch onChange={
+                                (e) => {
+                                    setIsProfessor(e.target.checked)
+                                    updateUserAsync()
+                                }
+                            }
+                                                               checked={isProfessor
+                                                               }/>}
                                               label="I'm professor"/>
                         </div>
                     </div>
@@ -97,6 +118,7 @@ export const Profile = () => {
                                 label={'Email'}
                                 onChange={() => {
                                 }}
+                                value={authInfo.user?.email}
                                 readonly={true}
                             />
 

@@ -2,26 +2,33 @@ import useSWR from "swr";
 import {useJwtFetcher} from "./useJwtFetcher.ts";
 
 interface User {
+    firstname: string | null;
+    featured_publications: string | null;
     user_id: string;
-    org_id_to_org_member_info: Record<string, unknown>;
-    email: string;
-    first_name: string | null;
-    last_name: string | null;
-    username: string | null;
-    properties: string | null;
-    legacy_user_id: string | null;
-    impersonator_user_id: string | null;
-    active_org_id: string | null;
-    login_method: {
-        login_method: string;
-    };
+    gender: string | null;
+    award_honor: string | null;
+    pronounce: string | null;
+    department: string | null;
+    biography: string | null;
+    photo: string | null;
+    id: string;
+    eduemail: string | null;
+    research_area: number | null;
+    name: string | null;
+    phonenumber: number | null;
+    middlename: string | null;
+    professor: boolean | null;
+    personal_homepage: string | null;
+    university: string | null;
+    lastname: string | null;
+    time: string;  // ISO date string
 }
 
 
 export const useUser = () => {
     const jwtFetcher = useJwtFetcher();
-    const {data: user, isLoading: isUserLoading} = useSWR<User>('/users/me', jwtFetcher);
-    const isProfileComplete = user?.username;
+    const {data: user, isLoading: isUserLoading} = useSWR<User>('/user/db-user', jwtFetcher);
+    const isProfileComplete = user?.name;
 
     return {user, isUserLoading, isProfileComplete};
 }
