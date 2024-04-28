@@ -20,7 +20,7 @@ export const Appbar = () => {
     const handleSearch = () => {
         setIsSearching(true)
 // 定义最大的 URL 长度
-        const MAX_URL_LENGTH = 5000;  // 根据你的服务器限制调整这个值
+        const MAX_URL_LENGTH = 50000;  // 根据你的服务器限制调整这个值
 
 // 基础 URL 部分
         const baseUrl = import.meta.env.VITE_APP_BACKEND_URL + '/research/search?';
