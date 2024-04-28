@@ -33,7 +33,7 @@ export const CreateResearch = () => {
 
         try {
             await axios.post(
-                `${import.meta.env.VITE_APP_BACKEND_URL}/research/create`,
+                `${import.meta.env.VITE_APP_BACKEND_URL}/proxy/research/create`,
                 {
                     Research: {
                         ...formData,

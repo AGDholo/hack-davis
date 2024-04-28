@@ -1,5 +1,10 @@
-import {FC} from "react";
+import {FC, useState} from "react";
 import DOMPurify from 'dompurify';
+import {useUser} from "../../hooks/useUser.ts";
+import axios from "axios";
+import {Alert, Dialog, Stack, Typography} from "@mui/material";
+import {TextareaAutosize} from "@mui/base";
+import {useAuthInfo} from "@propelauth/react";
 
 interface JobCardProps {
     company: string;
@@ -7,8 +12,10 @@ interface JobCardProps {
     title: string;
     type: string;
     description: string;
-    salary: number;
+    salary: string;
     isProfesssor?: boolean;
+    id?: string;
+    applied?: boolean;
 }
 
 export const jobs = [
@@ -81,6 +88,39 @@ export const jobs = [
 
 export const JobCard: FC<JobCardProps> = (job) => {
     const safeHtml = DOMPurify.sanitize(job.description);
+    const {user} = useUser()
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false)
+        setApplySuccess(false)
+    };
+    const [letter, setLetter] = useState('')
+    const authInfo = useAuthInfo()
+
+    const [applySuccess, setApplySuccess] = useState(false)
+
+    const handleApply = () => {
+        axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/proxy/research/apply`, {
+            Research: {
+                id: job.id,
+                title: job.title,
+                location: job.location,
+                salary: job.salary,
+                type: job.type,
+                description: job.description,
+                univercity: job.company
+            },
+            Application: {
+                letter: letter
+            },
+        }, {
+            headers: {Authorization: `Bearer ${authInfo.accessToken}`}
+        }).then(() => {
+            setApplySuccess(true)
+        })
+    }
+
     return (
         <div className='col-span-1  lg:col-span-4 xl:col-span-3 p-6 border rounded-xl hover:shadow-lg hover:border-0 cursor-pointer transition-all duration-200 ease-linear flex flex-col'>
             <div className='flex-1 z-0'>
@@ -116,10 +156,59 @@ export const JobCard: FC<JobCardProps> = (job) => {
                     ${job.salary} / Month
                 </div>
 
-                <button className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
-                    Apply Now
-                </button>
+                {user && !user.professor && !job.applied && (
+                    <button
+                        onClick={handleOpen}
+                        className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
+                        Apply Now
+                    </button>)}
+
+                {job.applied && (
+                    <div className='bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
+                        Applied
+                    </div>
+                )}
             </div>
+
+            <Dialog
+                open={open}
+                fullWidth
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Stack direction={'column'}
+                       spacing={2}
+                       sx={{
+                           p: 4,
+                       }}>
+
+                    {applySuccess && (
+                        <Alert severity="success">
+                            Application submitted successfully!
+                        </Alert>)
+                    }
+                    <Typography id="modal-modal-title"
+                                variant="h6"
+                                component="h2">
+                        Apply for {job.title}
+                    </Typography>
+                    <TextareaAutosize
+                        minRows={3}
+                        className="w-full text-sm font-normal font-sans leading-normal p-3 rounded-xl rounded-br-none shadow-lg shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
+                        aria-label="empty textarea"
+                        placeholder="Letter"
+                        value={letter}
+                        onChange={(e) => setLetter(e.target.value)}
+                    />
+
+                    <button
+                        onClick={handleApply}
+                        className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
+                        Submit
+                    </button>
+                </Stack>
+            </Dialog>
         </div>
     );
 

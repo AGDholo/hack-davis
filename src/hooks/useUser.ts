@@ -25,7 +25,8 @@ interface User {
     time: string;  // ISO date string
 }
 
-interface Research {
+export interface Research {
+    applied?: boolean;
     id: string;              // UUID string
     title: string;           // Text title
     professor_id: string;    // UUID string for the professor
@@ -43,7 +44,7 @@ export const useUser = () => {
     const {
         data: user,
         isLoading: isUserLoading
-    } = useSWR<User>(authInfo.accessToken ? '/user/db-user' : null, jwtFetcher, {
+    } = useSWR<User>(authInfo.accessToken ? '/proxy/user/db-user' : null, jwtFetcher, {
         refreshInterval: 1000 * 2
     });
     const isProfileComplete = user?.name;
@@ -51,7 +52,7 @@ export const useUser = () => {
     const {
         data: userResearches,
         isLoading: isUserResearchesLoading
-    } = useSWR<Research[]>(authInfo.accessToken && '/research/list', jwtFetcher, {
+    } = useSWR<Research[]>(authInfo.accessToken && '/proxy/research/list-by-professor', jwtFetcher, {
         refreshInterval: 1000 * 2
     });
 

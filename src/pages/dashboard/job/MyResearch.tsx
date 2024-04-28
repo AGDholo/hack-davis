@@ -1,5 +1,4 @@
 import {JobCard} from "../../../components/job/Jobcard.tsx";
-import {Pagination} from "@mui/material";
 import {useUser} from "../../../hooks/useUser.ts";
 
 export const MyResearch = () => {
@@ -14,15 +13,12 @@ export const MyResearch = () => {
                                  description={job.description}
                                  title={job.title}
                                  company={job.univercity}
-                                 salary={job.money}
+                                 salary={job.money.toString()}
                                  type={job.isFullTime ? 'Full-time' : 'Part-time'}
                                  location={job.location}/>
                     ))
                 }
             </div>
-
-            <Pagination count={10}
-                        className={'py-5 flex justify-center'}/>
         </>
     )
 }

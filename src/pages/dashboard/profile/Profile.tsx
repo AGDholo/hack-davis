@@ -65,7 +65,7 @@ export const Profile = () => {
     const updateUserAsync = async (professor: boolean) => {
         try {
             await axios.post(
-                `${import.meta.env.VITE_APP_BACKEND_URL}/user/update-user`,
+                `${import.meta.env.VITE_APP_BACKEND_URL}/proxy/user/update-user`,
                 {
                     professor: professor,
                     name: name,
