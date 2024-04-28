@@ -70,14 +70,14 @@ export const useUser = () => {
         data: userResearches,
         isLoading: isUserResearchesLoading
     } = useSWR<UserResearch[]>(authInfo.accessToken && '/proxy/research/list-by-professor', jwtFetcher, {
-        refreshInterval: 1000 * 2
+        refreshInterval: 1000 * 10
     });
 
 
     const {
         data: myApplications
     } = useSWR<MyApplication[]>(authInfo.accessToken ? '/proxy/user/my-applications' : null, jwtFetcher, {
-        refreshInterval: 1000 * 2
+        refreshInterval: 1000 * 10
     });
 
     return {user, isUserLoading, isProfileComplete, userResearches, isUserResearchesLoading, myApplications};
