@@ -55,13 +55,102 @@ ring-1 ring-slate-500
                 </div>
             </div>
 
-            <div className={'py-32 bg-slate-100'}>
-                <div className={'container mx-auto text-center'}>
-                    <div className={'text-4xl font-semibold'}>
-                        One platform for
-                        <br/>
-                        all your research <span className={'text-blue-500'}>jobs</span>
-                    </div>
+            <div className={'py-24 bg-slate-100'}>
+                <Solution/>
+            </div>
+
+
+            <div className={'py-24'}>
+                <FeaturedJobs/>
+            </div>
+        </>
+    )
+}
+
+const Solution = () => {
+    const solutions = [
+        {
+            title: <>Health &<br/>Medicine</>,
+            icon: 'i-mdi-hospital-box',
+            iconColor: 'text-red-500'
+        },
+        {
+            title: <>Physics &<br/>Astronomy</>,
+            icon: 'i-mdi-telescope',
+            iconColor: 'text-yellow-500'
+        },
+        {
+            title: <>Social &<br/>Psychology</>,
+            icon: 'i-mdi-brain',
+            iconColor: 'text-green-500'
+        },
+        {
+            title: <>Computer &<br/>Science</>,
+            icon: 'i-mdi-computer',
+            iconColor: 'text-blue-500'
+        },
+        {
+            title: <>Earth &<br/>Environment</>,
+            icon: 'i-mdi-earth',
+            iconColor: 'text-indigo-500'
+        },
+        {
+            title: <>Law &<br/>Politics</>,
+            icon: 'i-mdi-gavel',
+            iconColor: 'text-purple-500'
+        },
+        {
+            title: <>Arts &<br/>Humanities</>,
+            icon: 'i-mdi-palette',
+            iconColor: 'text-pink-500'
+        },
+        {
+            title: <>Math &<br/>Statistics</>,
+            icon: 'i-mdi-calculator-variant',
+            iconColor: 'text-blue-500'
+        }
+    ];
+
+    return (
+        <>
+            <div className={'container mx-auto text-center'}>
+                <div className={'text-4xl font-semibold'}>
+                    One platform for
+                    <br/>
+                    all your <span className={'text-blue-500'}>research jobs</span>
+                </div>
+
+                <div className={'grid grid-cols-12 py-10 gap-6 text-left'}>
+                    {
+                        solutions.map((solution, index) => (
+                            <div className={'col-span-3 rounded-xl bg-white p-6 hover:shadow hover:bg-cyan-500 hover:text-white cursor-pointer transition-all duration-200 ease-linear'}
+                                 key={index}>
+                                <div className={'flex gap-4'}>
+                                    <div>
+                                        <span className={`${solution.iconColor} text-3xl ${solution.icon}`}/>
+                                    </div>
+
+                                    <div className={'text-2xl'}>
+                                        {solution.title}
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+
+            </div>
+
+        </>
+    )
+}
+
+const FeaturedJobs = () => {
+    return (
+        <>
+            <div className={'container mx-auto text-center'}>
+                <div className={'text-4xl font-semibold'}>
+                    Featured <span className={'text-blue-500'}>Research Jobs</span>
                 </div>
             </div>
         </>
