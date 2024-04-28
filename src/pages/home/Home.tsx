@@ -155,6 +155,7 @@ const FeaturedJobs = () => {
     const navigate = useNavigate()
     const {redirectToLoginPage} = useRedirectFunctions()
     const {allResearches} = useResearch()
+
     return (
         <>
             <div className={'container mx-auto text-center'}>

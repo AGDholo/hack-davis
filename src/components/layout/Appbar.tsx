@@ -2,6 +2,10 @@ import {useNavigate} from "react-router-dom";
 import {useAuthInfo, useLogoutFunction, useRedirectFunctions} from "@propelauth/react";
 import {useState} from "react";
 import {Dialog} from "@mui/material";
+import axios from "axios";
+import {useResearch} from "../../hooks/useResearch.ts";
+import {Research} from "../../hooks/useUser.ts";
+import {JobCard} from "../job/Jobcard.tsx";
 
 export const Appbar = () => {
     const navigate = useNavigate()
@@ -9,7 +13,23 @@ export const Appbar = () => {
     const {redirectToLoginPage} = useRedirectFunctions()
     const logoutFunction = useLogoutFunction()
     const [openSearch, setOpenSearch] = useState(false)
+    const {allResearches} = useResearch()
+    const [query, setQuery] = useState('')
+    const [result, setResult] = useState<Research[]>()
 
+    const handleSearch = () => {
+        const researchData = allResearches && allResearches.length > 0 && encodeURIComponent(JSON.stringify(allResearches));
+        axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/research/search?need=${query}&research=${researchData}`)
+            .then(res => {
+                try {
+                    const r = JSON.parse(res.data)
+                    setResult(r)
+                    console.log(r)
+                } catch (e) {
+                    console.error(e)
+                }
+            })
+    }
     return (
         <>
 
@@ -88,6 +108,13 @@ cursor-pointer
                             <span className="i-mdi-search w-4 h-4 text-slate-500 dark:text-slate-400"/>
                         </div>
                         <input
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleSearch();
+                                }
+                            }}
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
 
                             className="block w-full p-3 ps-10 text-sm text-slate-900  rounded-3xl bg-slate-50
 transition-all duration-200 ease-linear
@@ -97,6 +124,22 @@ transition-all duration-200 ease-linear
                             placeholder={'AI research'}
                             type="text"
                         />
+                    </div>
+
+                    <div className={'pt-4 grid-cols-1 grid md:grid-cols-2'}>
+                        {result && result.map((r, i) => (
+                            <>
+                                <JobCard key={i}
+                                         description={r.description}
+                                         title={r.title}
+                                         company={r.univercity}
+                                         salary={r.money.toString() ?? ''}
+                                         type={r.isFullTime ? 'Full-time' : 'Part-time'}
+                                         location={r.location}>
+
+                                </JobCard>
+                            </>
+                        ))}
                     </div>
                 </div>
             </Dialog>

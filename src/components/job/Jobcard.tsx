@@ -271,7 +271,7 @@ export const JobCard: FC<JobCardProps> = (job) => {
 
                 <div className='mt-auto flex justify-between items-end pt-5'>
                     <div className='text-lg font-bold'>
-                        ${job.salary} / Month
+                        ${job.salary}
                     </div>
 
                     {user && !user.professor && !job.applied && (
