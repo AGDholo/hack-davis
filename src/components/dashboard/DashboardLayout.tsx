@@ -3,7 +3,7 @@ import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {FC} from "react";
 import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
 import {useUser} from "../../hooks/useUser.ts";
-import {Alert, BottomNavigation, BottomNavigationAction} from "@mui/material";
+import {BottomNavigation, BottomNavigationAction} from "@mui/material";
 
 interface AccountData {
     icon: string;
@@ -107,16 +107,16 @@ export const DashboardLayout = () => {
             <div className={'px-4 lg:ml-72 py-8 lg:mr-10 '}>
                 {authInfo.isLoggedIn ? (
                     <>
-                        {!isUserLoading && !isProfileComplete && (
-                            <Alert severity="error"
-                                   className={'mb-2'}>
-                                It is imperative that you complete
-                                your <Link to={'/dashboard/profile'}
-                                           className={'font-semibold'}>profile</Link> in order to proceed with any
-                                further
-                                action.
-                            </Alert>
-                        )}
+                        {/*{!isUserLoading && !isProfileComplete && (*/}
+                        {/*    <Alert severity="error"*/}
+                        {/*           className={'mb-2'}>*/}
+                        {/*        It is imperative that you complete*/}
+                        {/*        your <Link to={'/dashboard/profile'}*/}
+                        {/*                   className={'font-semibold'}>profile</Link> in order to proceed with any*/}
+                        {/*        further*/}
+                        {/*        action.*/}
+                        {/*    </Alert>*/}
+                        {/*)}*/}
                         <Outlet/>
                     </>
                 ) : (
