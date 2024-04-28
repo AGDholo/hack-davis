@@ -21,7 +21,7 @@ export const Home = () => {
                         </div>
 
                         <div>
-                            <form className="w-full  hidden lg:block">
+                            <form className="w-full px-5 sm:px-0">
                                 <div className="relative">
                                     <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                         <span className="i-mdi-search w-4 h-4 text-slate-500 dark:text-slate-400"/>
@@ -60,12 +60,12 @@ ring-1 ring-slate-500
                 </div>
             </div>
 
-            <div className={'py-24 bg-slate-100'}>
+            <div className={'py-24 bg-slate-100 px-5 sm:px-0'}>
                 <Solution/>
             </div>
 
 
-            <div className={'py-24'}>
+            <div className={'py-24 px-5 sm:px-0'}>
                 <FeaturedJobs/>
             </div>
         </>
@@ -125,10 +125,10 @@ const Solution = () => {
                     all your <span className={'text-blue-500'}>researches</span>
                 </div>
 
-                <div className={'grid grid-cols-12 py-10 gap-6 text-left'}>
+                <div className={'grid grid-cols-2 lg:grid-cols-12 py-10 gap-6 text-left'}>
                     {
                         solutions.map((solution, index) => (
-                            <div className={'col-span-3 rounded-xl bg-white p-6 hover:shadow hover:bg-cyan-500 hover:text-white cursor-pointer transition-all duration-200 ease-linear'}
+                            <div className={'col-span-1 lg:col-span-3 rounded-xl bg-white p-6 hover:shadow hover:bg-cyan-500 hover:text-white cursor-pointer transition-all duration-200 ease-linear'}
                                  key={index}>
                                 <div className={'flex gap-4'}>
                                     <div>
@@ -161,7 +161,7 @@ const FeaturedJobs = () => {
                     Featured <span className={'text-blue-500'}>Researches</span>
                 </div>
 
-                <div className={'grid grid-cols-12 text-left gap-6 pt-10'}>
+                <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 text-left gap-6 pt-10'}>
                     {
                         jobs.map((job, index) => (
                             <JobCard key={index} {...job}/>

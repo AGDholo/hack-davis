@@ -49,7 +49,7 @@ transition-all duration-200 ease-linear
                             <>
                                 <div className={`flex items-center`}>
                                     <span className="text-lg i-mdi-account-circle hidden lg:block mr-1"/>
-                                    {authInfo.isLoggedIn ? authInfo.user.email : 'Free to use'}
+                                    {authInfo.isLoggedIn ? 'Dashboard' : 'Free to use'}
                                 </div>
                             </>
                         </div>

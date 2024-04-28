@@ -8,7 +8,10 @@ export const Layout = () => {
             <div className={'fixed w-full backdrop-blur-xl ease-in duration-100  z-50'}>
                 <Appbar/>
             </div>
-            <Outlet/>
+
+            <div className={''}>
+                <Outlet/>
+            </div>
 
             <Footer/>
         </>

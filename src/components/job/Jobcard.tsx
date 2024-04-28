@@ -79,7 +79,7 @@ export const jobs = [
 
 export const JobCard: FC<JobCardProps> = (job) => {
     return (
-        <div className='col-span-3 p-6 border rounded-xl hover:shadow-lg hover:border-0 cursor-pointer transition-all duration-200 ease-linear flex flex-col'>
+        <div className='col-span-1 lg:col-span-3 p-6 border rounded-xl hover:shadow-lg hover:border-0 cursor-pointer transition-all duration-200 ease-linear flex flex-col'>
             <div className='flex-1 z-0'>
                 <div className='flex'>
                     <div className="relative grid select-none items-center whitespace-nowrap rounded-lg bg-gray-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">
