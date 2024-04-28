@@ -95,7 +95,7 @@ export const Profile = () => {
                             </div>
 
                             <div className={'mt-5'}>
-                                {user && (
+                                {!isUserLoading && (
                                     <FormControlLabel control={<Switch onChange={
                                         (e) => {
                                             setIsProfessor(e.target.checked)
