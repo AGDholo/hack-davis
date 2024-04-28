@@ -1,7 +1,7 @@
 import {JobCard, jobs} from "../../../components/job/Jobcard.tsx";
 import {Pagination} from "@mui/material";
 
-export const MyJob = () => {
+export const MyResearch = () => {
     return (
         <>
             <div className={'grid grid-cols-9 text-left gap-6'}>

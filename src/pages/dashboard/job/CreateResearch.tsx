@@ -4,7 +4,7 @@ import {FC, useRef} from "react";
 import {Editor} from "@tinymce/tinymce-react";
 import {Editor as TinyMCEEditor} from "tinymce";
 
-export const CreateJob = () => {
+export const CreateResearch = () => {
     return (
         <div className="container mx-auto max-w-lg space-y-4">
             <div>

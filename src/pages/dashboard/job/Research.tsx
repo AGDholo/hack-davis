@@ -1,7 +1,7 @@
 import {JobCard, jobs} from "../../../components/job/Jobcard.tsx";
 import {Pagination} from "@mui/material";
 
-export const Job = () => {
+export const Research = () => {
 
     return (
         <>

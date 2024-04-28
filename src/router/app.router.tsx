@@ -2,12 +2,12 @@ import {createBrowserRouter} from "react-router-dom";
 import {Layout} from "../components/layout/Layout.tsx";
 import {Home} from "../pages/home/Home.tsx";
 import {DashboardLayout} from "../components/dashboard/DashboardLayout.tsx";
-import {Job} from "../pages/dashboard/job/Job.tsx";
+import {Research} from "../pages/dashboard/job/Research.tsx";
 import {Profile} from "../pages/dashboard/profile/Profile.tsx";
-import {MyJob} from "../pages/dashboard/job/MyJob.tsx";
-import {CreateJob} from "../pages/dashboard/job/CreateJob.tsx";
+import {MyResearch} from "../pages/dashboard/job/MyResearch.tsx";
+import {CreateResearch} from "../pages/dashboard/job/CreateResearch.tsx";
 import {MyApplication} from "../pages/dashboard/job/MyApplication.tsx";
-import {EditJob} from "../pages/dashboard/job/EditJob.tsx";
+import {EditResearch} from "../pages/dashboard/job/EditResearch.tsx";
 
 export const AppRouter = createBrowserRouter([
     {
@@ -26,7 +26,7 @@ export const AppRouter = createBrowserRouter([
         children: [
             {
                 path: '',
-                element: <Job/>,
+                element: <Research/>,
             },
             {
                 path: 'profile',
@@ -34,15 +34,15 @@ export const AppRouter = createBrowserRouter([
             },
             {
                 path: 'my-researches',
-                element: <MyJob/>,
+                element: <MyResearch/>,
             },
             {
                 path: 'edit/{id}',
-                element: <EditJob/>
+                element: <EditResearch/>
             },
             {
                 path: 'create-researches',
-                element: <CreateJob/>
+                element: <CreateResearch/>
             },
             {
                 path: 'my-applications',

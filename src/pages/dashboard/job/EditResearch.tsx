@@ -1,7 +1,7 @@
 import {FormControlLabel, Switch, TextField} from "@mui/material";
 import {TextareaAutosize} from "@mui/base";
 
-export const EditJob = () => {
+export const EditResearch = () => {
     return (
         <>
             <div className="container mx-auto max-w-lg space-y-4">
