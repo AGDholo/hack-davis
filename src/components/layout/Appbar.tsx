@@ -1,15 +1,18 @@
 import {useNavigate} from "react-router-dom";
 import {useAuthInfo, useLogoutFunction, useRedirectFunctions} from "@propelauth/react";
+import {useState} from "react";
+import {Dialog} from "@mui/material";
 
 export const Appbar = () => {
     const navigate = useNavigate()
     const authInfo = useAuthInfo()
     const {redirectToLoginPage} = useRedirectFunctions()
     const logoutFunction = useLogoutFunction()
-
+    const [openSearch, setOpenSearch] = useState(false)
 
     return (
         <>
+
             <div className={'p-1 text-center bg-black text-white'}>
                 This website is intended for the demonstration of the Hack Davis software. All data displayed on the
                 site is fictitious and does not represent any actual professors or students.
@@ -28,12 +31,15 @@ export const Appbar = () => {
                                     <span className="i-mdi-search w-4 h-4 text-slate-500 dark:text-slate-400"/>
                                 </div>
                                 <input
+                                    readOnly
+                                    onClick={() => setOpenSearch(true)}
                                     className="block w-full p-3 ps-10 text-sm text-slate-900  rounded-3xl bg-slate-50
 transition-all duration-200 ease-linear
+cursor-pointer
   focus:ring-2 focus:ring-black focus:outline-none focus:ring-opacity-30
  dark:bg-slate-700  dark:placeholder-slate-400 dark:text-white "
                                     id="default-search"
-                                    placeholder={'Find your research'}
+                                    placeholder={'AI research'}
                                     type="search"
                                 />
                             </div>
@@ -72,6 +78,28 @@ transition-all duration-200 ease-linear
                 </div>
 
             </div>
+
+            <Dialog open={openSearch}
+                    fullWidth
+                    onClose={() => setOpenSearch(false)}>
+                <div className={'p-4'}>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <span className="i-mdi-search w-4 h-4 text-slate-500 dark:text-slate-400"/>
+                        </div>
+                        <input
+
+                            className="block w-full p-3 ps-10 text-sm text-slate-900  rounded-3xl bg-slate-50
+transition-all duration-200 ease-linear
+    focus:ring-2 focus:ring-black focus:outline-none focus:ring-opacity-30
+    dark:bg-slate-700  dark:placeholder-slate-400 dark:text-white "
+                            id="default-search"
+                            placeholder={'AI research'}
+                            type="text"
+                        />
+                    </div>
+                </div>
+            </Dialog>
         </>
     )
 }

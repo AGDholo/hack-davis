@@ -1,7 +1,8 @@
-import {JobCard, jobs} from "../../components/job/Jobcard.tsx";
+import {JobCard} from "../../components/job/Jobcard.tsx";
 import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
 import {useNavigate} from "react-router-dom";
 import {Tooltip} from "@mui/material";
+import {useResearch} from "../../hooks/useResearch.ts";
 
 export const Home = () => {
     return (
@@ -33,7 +34,7 @@ ring-1 ring-slate-500
   focus:ring-2 focus:ring-black focus:outline-none focus:ring-opacity-30
  dark:bg-slate-700  dark:placeholder-slate-400 dark:text-white "
                                         id="default-search"
-                                        placeholder={'Research title or keyword'}
+                                        placeholder={'Search any research by AI'}
                                         type="search"
                                     />
 
@@ -153,6 +154,7 @@ const FeaturedJobs = () => {
     const authInfo = useAuthInfo()
     const navigate = useNavigate()
     const {redirectToLoginPage} = useRedirectFunctions()
+    const {allResearches} = useResearch()
     return (
         <>
             <div className={'container mx-auto text-center'}>
@@ -162,8 +164,17 @@ const FeaturedJobs = () => {
 
                 <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 text-left gap-6 pt-10'}>
                     {
-                        jobs.map((job, index) => (
-                            <JobCard key={index} {...job}/>
+                        allResearches && allResearches?.map((job, index) => (
+                            index < 8 && <JobCard key={index}
+                                                  id={job.id}
+                                                  applied={job.applied}
+                                                  description={job.description}
+                                                  title={job.title}
+                                                  company={job.univercity}
+                                                  salary={job.money.toString()}
+                                                  type={job.isFullTime ? 'Full-time' : 'Part-time'}
+                                                  location={job.location}
+                            />
                         ))
                     }
                 </div>
