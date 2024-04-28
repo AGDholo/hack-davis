@@ -13,11 +13,11 @@ export const Home = () => {
                             <div>
                                 Get Right
                             </div>
-                            <div className={'text-blue-500 mt-1'}>Research Job</div>
+                            <div className={'text-blue-500 mt-1'}>Research</div>
                         </div>
 
                         <div className={'text-black/50'}>
-                            Your next research job is waiting for you!
+                            Your next research is waiting for you!
                         </div>
 
                         <div>
@@ -33,7 +33,7 @@ ring-1 ring-slate-500
   focus:ring-2 focus:ring-black focus:outline-none focus:ring-opacity-30
  dark:bg-slate-700  dark:placeholder-slate-400 dark:text-white "
                                         id="default-search"
-                                        placeholder={'Job title or keyword'}
+                                        placeholder={'Research title or keyword'}
                                         type="search"
                                     />
 
@@ -122,7 +122,7 @@ const Solution = () => {
                 <div className={'text-4xl font-semibold'}>
                     One platform for
                     <br/>
-                    all your <span className={'text-blue-500'}>research jobs</span>
+                    all your <span className={'text-blue-500'}>researches</span>
                 </div>
 
                 <div className={'grid grid-cols-12 py-10 gap-6 text-left'}>
@@ -158,7 +158,7 @@ const FeaturedJobs = () => {
         <>
             <div className={'container mx-auto text-center'}>
                 <div className={'text-4xl font-semibold'}>
-                    Featured <span className={'text-blue-500'}>Research Jobs</span>
+                    Featured <span className={'text-blue-500'}>Researches</span>
                 </div>
 
                 <div className={'grid grid-cols-12 text-left gap-6 pt-10'}>

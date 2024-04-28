@@ -1,11 +1,14 @@
 import {FormControlLabel, Switch, TextField} from "@mui/material";
 import {TextareaAutosize} from "@mui/base";
+import {FC, useRef} from "react";
+import {Editor} from "@tinymce/tinymce-react";
+import {Editor as TinyMCEEditor} from "tinymce";
 
 export const CreateJob = () => {
     return (
         <div className="container mx-auto max-w-lg space-y-4">
             <div>
-                <h1 className="text-2xl font-bold">Create Research Job</h1>
+                <h1 className="text-2xl font-bold">Create Research</h1>
             </div>
 
             <form className={'space-y-5'}>
@@ -19,6 +22,8 @@ export const CreateJob = () => {
                     aria-label="empty textarea"
                     placeholder="Description"
                 />
+
+                <UserEditor/>
 
                 <TextField id="outlined-basic"
                            fullWidth
@@ -48,3 +53,40 @@ export const CreateJob = () => {
         </div>
     )
 }
+
+const UserEditor: FC = () => {
+    const editorRef = useRef<TinyMCEEditor | null>(null);
+
+    const log = () => {
+        if (editorRef.current) {
+            console.log(editorRef.current.getContent());
+        }
+    };
+
+    return (
+        <>
+            <Editor
+                apiKey='your-api-key'
+                //eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
+                onInit={(_evt, editor) => (editorRef.current = editor)} // This is how it should be done
+                initialValue="<p>This is the initial content of the editor.</p>"
+                init={{
+                    height: 500,
+                    menubar: false,
+                    plugins: [
+                        'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                        'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                        'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                    ],
+                    toolbar: 'undo redo | blocks | ' +
+                        'bold italic forecolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                }}
+            />
+            <button onClick={log}>Log editor content</button>
+        </>
+    );
+};

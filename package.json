@@ -15,6 +15,8 @@
     "@mui/base": "5.0.0-beta.40",
     "@mui/material": "^5.15.15",
     "@propelauth/react": "^2.0.20",
+    "@tinymce/tinymce-react": "^5.0.1",
+    "@types/tinymce": "^4.6.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.23.0"

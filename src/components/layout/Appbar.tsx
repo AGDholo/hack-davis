@@ -33,7 +33,7 @@ transition-all duration-200 ease-linear
   focus:ring-2 focus:ring-black focus:outline-none focus:ring-opacity-30
  dark:bg-slate-700  dark:placeholder-slate-400 dark:text-white "
                                     id="default-search"
-                                    placeholder={'Find your research job'}
+                                    placeholder={'Find your research'}
                                     type="search"
                                 />
                             </div>

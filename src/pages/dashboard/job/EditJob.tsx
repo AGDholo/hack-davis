@@ -6,7 +6,7 @@ export const EditJob = () => {
         <>
             <div className="container mx-auto max-w-lg space-y-4">
                 <div>
-                    <h1 className="text-2xl font-bold">Edit Research Job</h1>
+                    <h1 className="text-2xl font-bold">Edit Research</h1>
                 </div>
 
                 <form className={'space-y-5'}>
