@@ -165,7 +165,7 @@ const FeaturedJobs = () => {
 
                 <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 text-left gap-6 pt-10'}>
                     {
-                        allResearches && allResearches?.map((job, index) => (
+                        allResearches && allResearches.length > 0 && allResearches?.map((job, index) => (
                             index < 8 && <JobCard key={index}
                                                   id={job.id}
                                                   applied={job.applied}

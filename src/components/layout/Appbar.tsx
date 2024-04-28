@@ -16,8 +16,9 @@ export const Appbar = () => {
     const {allResearches} = useResearch()
     const [query, setQuery] = useState('')
     const [result, setResult] = useState<Research[]>()
-
+    const [isSearching, setIsSearching] = useState(false)
     const handleSearch = () => {
+        setIsSearching(true)
         const researchData = allResearches && allResearches.length > 0 && encodeURIComponent(JSON.stringify(allResearches));
         axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/research/search?need=${query}&research=${researchData}`)
             .then(res => {
@@ -126,9 +127,9 @@ transition-all duration-200 ease-linear
                         />
                     </div>
 
-                    <div className={'pt-4 grid-cols-1 grid md:grid-cols-2'}>
+                    <div className={'pt-4 grid-cols-1 grid md:grid-cols-2 md:gap-4'}>
                         {result && result.map((r, i) => (
-                            <>
+                            <div className={'col-span-1 md:col-span-1'}>
                                 <JobCard key={i}
                                          description={r.description}
                                          title={r.title}
@@ -138,7 +139,7 @@ transition-all duration-200 ease-linear
                                          location={r.location}>
 
                                 </JobCard>
-                            </>
+                            </div>
                         ))}
                     </div>
                 </div>
