@@ -10,13 +10,13 @@ export const useResearch = () => {
         data: allResearches,
         isLoading: isAllResearchesLoading
     } = useSWR<Research[]>('/research/list', jwtFetcher, {
-        refreshInterval: 1000 * 2
+        refreshInterval: 1000 * 10
     });
 
     const {
         data: allResearchesByApplied
     } = useSWR(authInfo.accessToken && '/proxy/research/list-by-apply', jwtFetcher, {
-        refreshInterval: 1000 * 2
+        refreshInterval: 1000 * 10
     });
 
     // get a new research list from all researches and user researches, apply a new field:applied to each research object
