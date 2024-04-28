@@ -1,4 +1,4 @@
-import {Avatar, TextField} from "@mui/material";
+import {Avatar, FormControlLabel, Switch, TextField} from "@mui/material";
 import {FC} from "react";
 import {TextareaAutosize} from '@mui/base';
 
@@ -48,13 +48,22 @@ export const Profile = () => {
             <div className={'grid grid-cols-1 lg:grid-cols-12 gap-4 dark:text-white'}>
                 <div className={'lg:col-span-5 space-y-4'}>
                     <div className={'bg-slate-100 rounded-3xl p-6 dark:bg-slate-700'}>
-                        <div>
-                            Avatar
+                        <div className={'flex justify-between items-center'}>
+                            <div>
+                                User Role
+                            </div>
+
+                            <div>
+                                <button
+                                    className={'hover:bg-transparent ring-1 ring-fuchsia-600 hover:bg-fuchsia-600 text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl bg-slate-100 py-1 px-4'}>
+                                    Save
+                                </button>
+                            </div>
                         </div>
 
                         <div className={'mt-5'}>
-                            {/*<Avatar sx={{width: 56, height: 56}}*/}
-                            {/*        src={user?.picture}/>*/}
+                            <FormControlLabel control={<Switch/>}
+                                              label="I'm professor"/>
                         </div>
                     </div>
                 </div>
