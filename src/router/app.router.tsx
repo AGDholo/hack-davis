@@ -33,7 +33,7 @@ export const AppRouter = createBrowserRouter([
                 element: <Profile/>,
             },
             {
-                path: 'my-jobs',
+                path: 'my-researches',
                 element: <MyJob/>,
             },
             {
@@ -41,7 +41,7 @@ export const AppRouter = createBrowserRouter([
                 element: <EditJob/>
             },
             {
-                path: 'create-job',
+                path: 'create-researches',
                 element: <CreateJob/>
             },
             {

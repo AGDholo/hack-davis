@@ -66,7 +66,7 @@ export const DashboardLayout = () => {
         {
             icon: 'i-mdi-plus-circle-outline',
             label: 'Create Researche',
-            path: '/dashboard/create-researche'
+            path: '/dashboard/create-researches'
         },
 
     ]
