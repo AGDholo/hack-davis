@@ -16,6 +16,15 @@ interface JobCardProps {
     isProfesssor?: boolean;
     id?: string;
     applied?: boolean;
+    applications?: {
+        research: {
+            id: string;
+            letter: string;
+            time: string;
+            student_id: string;
+            status?: number;
+        }[]
+    }
 }
 
 export const jobs = [
@@ -99,7 +108,7 @@ export const JobCard: FC<JobCardProps> = (job) => {
     const authInfo = useAuthInfo()
 
     const [applySuccess, setApplySuccess] = useState(false)
-
+    const [approveSuccess, setApproveSuccess] = useState(false)
     const handleApply = () => {
         axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/proxy/research/apply`, {
             Research: {
@@ -121,95 +130,204 @@ export const JobCard: FC<JobCardProps> = (job) => {
         })
     }
 
+    const [openPeople, setOpenPeople] = useState(false);
+    const handleOpenPeople = () => {
+        setOpenPeople(true)
+    };
+
+    const handleApprove = (status: number, id: string) => {
+        axios.post(`${import.meta.env.VITE_APP_BACKEND_URL}/proxy/research/approve`, {
+            id: id,
+            status: status
+        }, {
+            headers: {Authorization: `Bearer ${authInfo.accessToken}`}
+        }).then(() => {
+            setApproveSuccess(true)
+        })
+    }
+
     return (
-        <div className='col-span-1  lg:col-span-4 xl:col-span-3 p-6 border rounded-xl hover:shadow-lg hover:border-0 cursor-pointer transition-all duration-200 ease-linear flex flex-col'>
-            <div className='flex-1 z-0'>
-                <div className='flex'>
-                    <div className="relative grid select-none items-center whitespace-nowrap rounded-lg bg-gray-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">
-                        <span>{job.company}</span>
-                    </div>
-                </div>
-
-                <div className='mt-1 space-y-0.5'>
-                    <div className='text-xl font-semibold'>
-                        {job.title}
-                    </div>
-
-                    <div className='text-sm text-gray-500'>
-                        {job.location}
-                    </div>
-
-                    <div className='text-sm text-gray-500'>
-                        {job.type}
-                    </div>
-                </div>
-
-                <div className='flex flex-1'>
-                    <div className='mt-2'>
-                        <div dangerouslySetInnerHTML={{__html: safeHtml}}/>
-                    </div>
-                </div>
-            </div>
-
-            <div className='mt-auto flex justify-between items-end pt-5'>
-                <div className='text-lg font-bold'>
-                    ${job.salary} / Month
-                </div>
-
-                {user && !user.professor && !job.applied && (
-                    <button
-                        onClick={handleOpen}
-                        className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
-                        Apply Now
-                    </button>)}
-
-                {job.applied && (
-                    <div className='bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
-                        Applied
-                    </div>
-                )}
-            </div>
-
+        <>
             <Dialog
-                open={open}
+                open={openPeople}
                 fullWidth
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
+                onClose={() => {
+                    setOpenPeople(false)
+                    setApproveSuccess(false)
+                }}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
             >
-                <Stack direction={'column'}
-                       spacing={2}
-                       sx={{
-                           p: 4,
-                       }}>
+                <div className={'p-2 space-y-4 overflow-y'}>
+                    {job.applications && job.applications.research.map((application, index) =>
+                        (
+                            <div className={'px-2 py-2 rounded-2xl border border-blue-500 dark:border-gray-700'}
+                                 key={index}>
+                                <div>
+                                    {approveSuccess && (
+                                        <div className={'p-1 bg-cyan-500 text-white rounded-3xl mb-2'}>
+                                            Action successful
+                                        </div>
+                                    )}
+                                </div>
+                                <div className={'flex justify-between'}>
+                                    <div className={'text-gray-500'}>
+                                        UserId: {application.student_id}
+                                    </div>
 
-                    {applySuccess && (
-                        <Alert severity="success">
-                            Application submitted successfully!
-                        </Alert>)
+                                    <div className={'flex gap-2'}>
+                                        <div
+                                            id="basic-button"
+                                            onClick={() => {
+                                                application.status === null && handleApprove(1, application.id)
+                                            }}
+                                            className={`
+                            ${application.status === 1 && 'bg-green-500 text-white'}
+                            ${application.status === 2 && 'bg-red-500 text-white'}
+                            ${application.status === null && 'hover:bg-cyan-500 hover:text-white'}
+                            text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl border  py-2 px-4`}>
+                                            <>
+                                                <div className={`flex items-center`}>
+                                                    {application.status === 1 && 'Approved'}
+                                                    {application.status === 2 && 'Rejected'}
+                                                    {application.status === null && 'Approve'}
+                                                </div>
+                                            </>
+                                        </div>
+
+                                        {application.status === null && (
+                                            <div
+                                                id="basic-button"
+                                                onClick={() => {
+                                                    application.status === null && handleApprove(2, application.id)
+                                                }}
+                                                className={`
+                                                hover:bg-red-500 hover:text-white
+                            text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl border  py-2 px-4`}>
+                                                <>
+                                                    <div className={`flex items-center`}>
+                                                        Reject
+                                                    </div>
+                                                </>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div className={'font-semibold underline text-lg'}>
+                                        Application Letter
+                                    </div>
+                                    {application.letter}
+                                </div>
+                            </div>
+                        ))
                     }
-                    <Typography id="modal-modal-title"
-                                variant="h6"
-                                component="h2">
-                        Apply for {job.title}
-                    </Typography>
-                    <TextareaAutosize
-                        minRows={3}
-                        className="w-full text-sm font-normal font-sans leading-normal p-3 rounded-xl rounded-br-none shadow-lg shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
-                        aria-label="empty textarea"
-                        placeholder="Letter"
-                        value={letter}
-                        onChange={(e) => setLetter(e.target.value)}
-                    />
-
-                    <button
-                        onClick={handleApply}
-                        className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
-                        Submit
-                    </button>
-                </Stack>
+                </div>
             </Dialog>
-        </div>
+            <div
+                onClick={() => job.applications && job?.applications.research.length > 0 && handleOpenPeople()}
+                className='col-span-1  lg:col-span-4 xl:col-span-3 p-6 border rounded-xl hover:shadow-lg hover:border-0 cursor-pointer transition-all duration-200 ease-linear flex flex-col'>
+                {
+                    job.applications && (
+                        <div className='flex justify-between'>
+                            <div className='text-sm text-gray-500'>
+                                {job.applications.research.length} applications
+                            </div>
+                        </div>
+                    )
+                }
+
+
+                <div className='flex-1 z-0 pt-4'>
+                    <div className='flex'>
+
+                        <div className="relative grid select-none items-center whitespace-nowrap rounded-lg bg-gray-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">
+                            <span>{job.company}</span>
+                        </div>
+                    </div>
+
+                    <div className='mt-1 space-y-0.5'>
+                        <div className='text-xl font-semibold'>
+                            {job.title}
+                        </div>
+
+                        <div className='text-sm text-gray-500'>
+                            {job.location}
+                        </div>
+
+                        <div className='text-sm text-gray-500'>
+                            {job.type}
+                        </div>
+                    </div>
+
+                    <div className='flex flex-1'>
+                        <div className='mt-2'>
+                            <div dangerouslySetInnerHTML={{__html: safeHtml}}/>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='mt-auto flex justify-between items-end pt-5'>
+                    <div className='text-lg font-bold'>
+                        ${job.salary} / Month
+                    </div>
+
+                    {user && !user.professor && !job.applied && (
+                        <button
+                            onClick={handleOpen}
+                            className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
+                            Apply Now
+                        </button>)}
+
+                    {job.applied && (
+                        <div className='bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
+                            Applied
+                        </div>
+                    )}
+                </div>
+
+                <Dialog
+                    open={open}
+                    fullWidth
+                    onClose={handleClose}
+                    aria-labelledby="modal-modal-title"
+                    aria-describedby="modal-modal-description"
+                >
+                    <Stack direction={'column'}
+                           spacing={2}
+                           sx={{
+                               p: 4,
+                           }}>
+
+                        {applySuccess && (
+                            <Alert severity="success">
+                                Application submitted successfully!
+                            </Alert>)
+                        }
+                        <Typography id="modal-modal-title"
+                                    variant="h6"
+                                    component="h2">
+                            Apply for {job.title}
+                        </Typography>
+                        <TextareaAutosize
+                            minRows={3}
+                            className="w-full text-sm font-normal font-sans leading-normal p-3 rounded-xl rounded-br-none shadow-lg shadow-slate-100 dark:shadow-slate-900 focus:shadow-outline-purple dark:focus:shadow-outline-purple focus:shadow-lg border border-solid border-slate-300 hover:border-purple-500 dark:hover:border-purple-500 focus:border-purple-500 dark:focus:border-purple-500 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-300 focus-visible:outline-0 box-border"
+                            aria-label="empty textarea"
+                            placeholder="Letter"
+                            value={letter}
+                            onChange={(e) => setLetter(e.target.value)}
+                        />
+
+                        <button
+                            onClick={handleApply}
+                            className='bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
+                            Submit
+                        </button>
+                    </Stack>
+                </Dialog>
+            </div>
+        </>
     );
 
 }

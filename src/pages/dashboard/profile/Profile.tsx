@@ -70,7 +70,8 @@ export const Profile = () => {
                     professor: professor,
                     name: name,
                     university: university,
-                    biography: biography
+                    biography: biography,
+                    eduemail: user?.eduemail
                 },
                 {
                     headers: {Authorization: `Bearer ${authInfo.accessToken}`}

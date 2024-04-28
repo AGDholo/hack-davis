@@ -38,6 +38,18 @@ export interface Research {
     time: string;            // ISO string for time
 }
 
+
+export interface UserResearch {
+    researchData: Research;
+    applications: {
+        id: string;
+        letter: string;
+        time: string;
+        student_id: string;
+        status?: number;
+    }[];
+}
+
 export const useUser = () => {
     const authInfo = useAuthInfo()
     const jwtFetcher = useJwtFetcher();
@@ -52,7 +64,7 @@ export const useUser = () => {
     const {
         data: userResearches,
         isLoading: isUserResearchesLoading
-    } = useSWR<Research[]>(authInfo.accessToken && '/proxy/research/list-by-professor', jwtFetcher, {
+    } = useSWR<UserResearch[]>(authInfo.accessToken && '/proxy/research/list-by-professor', jwtFetcher, {
         refreshInterval: 1000 * 2
     });
 

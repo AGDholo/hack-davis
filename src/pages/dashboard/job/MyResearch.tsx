@@ -8,14 +8,17 @@ export const MyResearch = () => {
         <>
             <div className={'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-9 text-left gap-6'}>
                 {
-                    userResearches?.map((job, index) => (
+                    userResearches && userResearches?.map((job, index) => (
                         <JobCard key={index}
-                                 description={job.description}
-                                 title={job.title}
-                                 company={job.univercity}
-                                 salary={job.money.toString()}
-                                 type={job.isFullTime ? 'Full-time' : 'Part-time'}
-                                 location={job.location}/>
+                                 applications={{
+                                     research: job.applications
+                                 }}
+                                 description={job.researchData.description}
+                                 title={job.researchData.title}
+                                 company={job.researchData.univercity}
+                                 salary={job.researchData.money?.toString()}
+                                 type={job.researchData.isFullTime ? 'Full-time' : 'Part-time'}
+                                 location={job.researchData.location}/>
                     ))
                 }
             </div>
