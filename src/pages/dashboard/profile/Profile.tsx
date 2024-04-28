@@ -1,6 +1,7 @@
 import {Avatar, FormControlLabel, Switch, TextField} from "@mui/material";
-import {FC} from "react";
+import {FC, useEffect} from "react";
 import {TextareaAutosize} from '@mui/base';
+import {useUser} from "../../../hooks/useUser.ts";
 
 interface ProfileFieldProps {
     label?: string;
@@ -43,6 +44,11 @@ const ProfileField: FC<ProfileFieldProps> = ({readonly, label, value, onChange, 
 
 
 export const Profile = () => {
+    const user = useUser()
+    useEffect(() => {
+        console.log(user)
+    }, [user])
+
     return (
         <>
             <div className={'grid grid-cols-1 lg:grid-cols-12 gap-4 dark:text-white'}>

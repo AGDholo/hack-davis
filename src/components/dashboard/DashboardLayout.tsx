@@ -2,6 +2,8 @@ import {Appbar} from "../layout/Appbar.tsx";
 import {Link, Outlet, useLocation} from "react-router-dom";
 import {FC} from "react";
 import {useAuthInfo, useRedirectFunctions} from "@propelauth/react";
+import {useUser} from "../../hooks/useUser.ts";
+import {Alert} from "@mui/material";
 
 interface AccountData {
     icon: string;
@@ -74,6 +76,9 @@ export const DashboardLayout = () => {
 
     const authInfo = useAuthInfo()
     const {redirectToLoginPage} = useRedirectFunctions()
+
+    const {isProfileComplete, isUserLoading} = useUser();
+
     return (
         <>
             <div className={'lg:sticky lg:top-0 lg:left-0 w-full z-50 backdrop-blur-xl ease-in duration-100'}>
@@ -91,7 +96,21 @@ export const DashboardLayout = () => {
             </div>
 
             <div className={'px-4 lg:ml-72 py-8 lg:mr-10 '}>
-                {authInfo.isLoggedIn ? <Outlet/> : (
+                {authInfo.isLoggedIn ? (
+                    <>
+                        {!isUserLoading && !isProfileComplete && (
+                            <Alert severity="error"
+                                   className={'mb-2'}>
+                                It is imperative that you complete
+                                your <Link to={'/dashboard/profile'}
+                                           className={'font-semibold'}>profile</Link> in order to proceed with any
+                                further
+                                action.
+                            </Alert>
+                        )}
+                        <Outlet/>
+                    </>
+                ) : (
                     <div className={'flex'}>
                         <div
                             id="basic-button"
