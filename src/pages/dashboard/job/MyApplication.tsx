@@ -9,13 +9,14 @@ export const MyApplication = () => {
                 {
                     myApplications?.map((job, index) => (
                         <JobCard key={index}
-                                 description={job.description}
-                                 title={job.title}
-                                 company={job.univercity}
-                                 salary={job.money.toString() ?? ''}
+                                 status={job.status}
+                                 description={job.research.description}
+                                 title={job.research.title}
+                                 company={job.research.univercity}
+                                 salary={job.research.money.toString() ?? ''}
                                  applied={true}
-                                 type={job.isFullTime ? 'Full-time' : 'Part-time'}
-                                 location={job.location}
+                                 type={job.research.isFullTime ? 'Full-time' : 'Part-time'}
+                                 location={job.research.location}
                         />
                     ))
                 }

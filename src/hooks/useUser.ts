@@ -50,6 +50,11 @@ export interface UserResearch {
     }[];
 }
 
+export interface MyApplication {
+    research: Research,
+    status: number
+}
+
 export const useUser = () => {
     const authInfo = useAuthInfo()
     const jwtFetcher = useJwtFetcher();
@@ -71,7 +76,7 @@ export const useUser = () => {
 
     const {
         data: myApplications
-    } = useSWR<Research[]>(authInfo.accessToken ? '/proxy/user/my-applications' : null, jwtFetcher, {
+    } = useSWR<MyApplication[]>(authInfo.accessToken ? '/proxy/user/my-applications' : null, jwtFetcher, {
         refreshInterval: 1000 * 2
     });
 

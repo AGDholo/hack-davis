@@ -24,7 +24,8 @@ interface JobCardProps {
             student_id: string;
             status?: number;
         }[]
-    }
+    },
+    status?: number
 }
 
 export const jobs = [
@@ -280,9 +281,18 @@ export const JobCard: FC<JobCardProps> = (job) => {
                             Apply Now
                         </button>)}
 
-                    {job.applied && (
+                    {job.applied && job.status === null ? (
                         <div className='bg-gradient-to-r from-green-500 to-cyan-500 text-white text-sm px-4 py-2 rounded-3xl'>
                             Applied
+                        </div>
+                    ) : (
+                        <div className={`${job.status === 1 && 'bg-green-500'} ${
+                            job.status === 2 && 'bg-red-500'
+
+                        } text-white text-sm px-4 py-2 rounded-3xl`}>
+                            {job.status === 1 && 'Approved'}
+                            {job.status === 2 && 'Rejected'}
+                            {job.status === null && 'Pending'}
                         </div>
                     )}
                 </div>
