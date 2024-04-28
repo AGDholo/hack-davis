@@ -12,8 +12,8 @@ export const Appbar = () => {
                 <div className="border-b dark:border-b-slate-600 h-16 grid-cols-3 grid items-center px-4 lg:px-10">
                     <div className=" text-lg lg:text-2xl font-extrabold permanent-marker flex items-end dark:text-white cursor-pointer"
                          onClick={() => navigate('/')}>
-                        <img src={'/img.png'}
-                             className={'lg:h-10'}/> etResearch
+                        {/*<img src={'/img.png'} className={'lg:h-10'}/> */}
+                        GetResearch
                     </div>
                     <div className={' z-0'}>
                         <form className="w-full  hidden lg:block z-0">

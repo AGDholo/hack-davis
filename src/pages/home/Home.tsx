@@ -130,7 +130,7 @@ const Solution = () => {
                                         <span className={`${solution.iconColor} text-3xl ${solution.icon}`}/>
                                     </div>
 
-                                    <div className={'text-2xl'}>
+                                    <div className={'text-lg'}>
                                         {solution.title}
                                     </div>
                                 </div>
@@ -226,7 +226,7 @@ const FeaturedJobs = () => {
                         jobs.map((job, index) => (
                             <div className={'col-span-3 p-6 border rounded-xl hover:shadow cursor-pointer transition-all duration-200 ease-linear flex flex-col'}
                                  key={index}>
-                                <div className={'flex-1'}>
+                                <div className={'flex-1 z-0'}>
                                     <div className={'flex'}>
                                         <div className="relative grid select-none items-center whitespace-nowrap rounded-lg bg-gray-900 py-1.5 px-3 font-sans text-xs font-bold uppercase text-white">
                                             <span>{job.company}</span>
