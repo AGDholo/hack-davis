@@ -16,8 +16,30 @@ export const Home = () => {
 
     const handleSearch = () => {
         setIsSearching(true)
-        const researchData = allResearches && allResearches.length > 0 && encodeURIComponent(JSON.stringify(allResearches));
-        axios.get(`${import.meta.env.VITE_APP_BACKEND_URL}/research/search?need=${query}&research=${researchData}`)
+// 定义最大的 URL 长度
+        const MAX_URL_LENGTH = 2048;  // 根据你的服务器限制调整这个值
+
+// 基础 URL 部分
+        const baseUrl = import.meta.env.VITE_APP_BACKEND_URL + '/research/search?';
+        const needPart = `need=${query}`;
+
+// 初始化 researchData
+        let researchData = '';
+        if (allResearches && allResearches.length > 0) {
+            // 尝试序列化并编码 allResearches 直到达到最大长度
+            for (let i = 0; i < allResearches.length; i++) {
+                const currentPart = encodeURIComponent(JSON.stringify(allResearches.slice(0, i + 1)));
+                if (baseUrl.length + needPart.length + currentPart.length + "&research=".length < MAX_URL_LENGTH) {
+                    researchData = currentPart;
+                } else {
+                    break;  // 如果添加下一个元素会超出最大长度，则停止添加
+                }
+            }
+        }
+
+// 构建完整的 URL
+        const url = `${baseUrl}${needPart}&research=${researchData}`;
+        axios.get(url)
             .then(res => {
                 try {
                     const r = JSON.parse(res.data)
