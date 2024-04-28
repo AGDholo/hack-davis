@@ -46,7 +46,6 @@ ring-1 ring-slate-500
                             text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl py-2 px-4`}>
                                                 <>
                                                     <div className={`flex items-center`}>
-                                                        <span className="text-lg i-mdi-account-circle hidden lg:block mr-1"/>
                                                         Search
                                                     </div>
                                                 </>

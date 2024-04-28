@@ -48,7 +48,7 @@ transition-all duration-200 ease-linear
                             text-sm text-slate-500 cursor-pointer dark:bg-slate-700 dark:text-white rounded-3xl bg-slate-100 py-2 px-4`}>
                             <>
                                 <div className={`flex items-center`}>
-                                    <span className="text-lg i-mdi-account-circle hidden lg:block mr-1"/>
+                                    <span className="text-lg i-mdi-account-circle mr-1"/>
                                     {authInfo.isLoggedIn ? 'Dashboard' : 'Free to use'}
                                 </div>
                             </>
